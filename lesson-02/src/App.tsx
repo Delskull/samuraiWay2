@@ -1,32 +1,23 @@
 function App() {
     const tracks = [
-        {
-            title: "Musicfun soundtrack",
-            url: "https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3",
-        },
-        {
-            title: "Musicfun soundtrack instrumental",
-            url: " https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3",
-        },
+        {id: 1, title: "Musicfun soundtrack", url: "https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3",},
+        {id: 2,title: "Musicfun soundtrack instrumental", url: " https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3",},
     ]
-    const liReactEl = [<li>
-        <div> {tracks[0].title}</div>
-        <audio controls
-               src={tracks[0].url}></audio>
-    </li>,
-        <li>
-            <div>{tracks[1].title}</div>
-            <audio
-                controls
-                src={tracks[1].url}
-            ></audio>
-        </li>]
 
 
     return (
         <div>
             <ul>
-                {[liReactEl]}
+                {
+                    tracks.map((track) => {
+                        return (
+                            <li key={track.id}>
+                                <div> {track.title}</div>
+                                <audio controls
+                                       src={track.url}></audio>
+                            </li>
+                        )
+                    })}
             </ul>
         </div>
     )
