@@ -1,14 +1,33 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-const tracks = [
+let tracks = [
     {id: 1, title: "Musicfun soundtrack", url: "https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3",},
     {id: 2, title: "Musicfun soundtrack instrumental", url: " https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3",},
 ]
 
-function App() {
 
+function getTracks () {
+     return fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
+    headers: {
+        'api-key': 'e9711845-76f1-4dc0-8c55-1964c41b5b4b'
+    }
+}).then(res => res.json())
+    .then(data => {
+        console.log('структура данных', data);
+        return data
+    })
+
+}
+
+
+function App() {
     const [selectedTrackId, setSelectedTrackId] = useState(null)
 
+ //useEffect(() => {
+ //        getTracks().then(loadedData => {
+ //            console.log('данные загрузились', loadedData.data[0].attributes.attachments[0].url)
+ //        })
+ //    })
 
 
     if(tracks === null){
@@ -50,6 +69,7 @@ function App() {
             </ul>
         </div>
     )
+
 }
 
 export default App
