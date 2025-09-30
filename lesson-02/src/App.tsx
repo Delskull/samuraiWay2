@@ -1,33 +1,23 @@
 import {useEffect, useState} from "react";
 
-let tracks = [
-    {id: 1, title: "Musicfun soundtrack", url: "https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3",},
-    {id: 2, title: "Musicfun soundtrack instrumental", url: " https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3",},
-]
 
-
-function getTracks () {
-     return fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
-    headers: {
-        'api-key': 'e9711845-76f1-4dc0-8c55-1964c41b5b4b'
-    }
-}).then(res => res.json())
-    .then(data => {
-        console.log('структура данных', data);
-        return data
-    })
-
-}
 
 
 function App() {
     const [selectedTrackId, setSelectedTrackId] = useState(null)
+    const [tracks, setTracks] = useState(null)
 
- //useEffect(() => {
- //        getTracks().then(loadedData => {
- //            console.log('данные загрузились', loadedData.data[0].attributes.attachments[0].url)
- //        })
- //    })
+    useEffect(() => {
+        console.log('effect')
+        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
+            headers: {
+                'api-key': 'e9711845-76f1-4dc0-8c55-1964c41b5b4b'
+            }
+        }).then(res => res.json())
+            .then(json => setTracks(json.data))
+
+
+    }, [])
 
 
     if(tracks === null){
@@ -59,10 +49,10 @@ function App() {
                                 <div onClick={ () => {
                                     setSelectedTrackId(track.id)
                                 }}>
-                                    {track.title}
+                                    {track.attributes.title}
                                 </div>
                                 <audio controls
-                                       src={track.url}></audio>
+                                       src={track.attributes.attachments[0].url}></audio>
                             </li>
                         )
                     })}
