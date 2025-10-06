@@ -69,7 +69,7 @@ function App() {
                                     }).then(res => res.json())
                                         .then(json => setSelectedTrack(json.data))
 
-                                   setSelectedTrack({ loading: true})
+                                   setSelectedTrack({loading: true})
                                 }}>
                                     {track.attributes.title}
                                 </div>
