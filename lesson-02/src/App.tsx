@@ -9,7 +9,6 @@ function App() {
     const [tracks, setTracks] = useState(null)
 
     useEffect(() => {
-        console.log('effect')
         fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
             headers: {
                 'api-key': 'e9711845-76f1-4dc0-8c55-1964c41b5b4b'
@@ -35,11 +34,6 @@ function App() {
             </div>
     }
 
-        if(selectedTrack === undefined) {
-            return <div>
-                <span> Loading...</span>
-            </div>
-        }
 
     return (
         <div >
@@ -69,7 +63,7 @@ function App() {
                                     }).then(res => res.json())
                                         .then(json => setSelectedTrack(json.data))
 
-                                   setSelectedTrack({loading: true})
+                                   // setSelectedTrack(track)
                                 }}>
                                     {track.attributes.title}
                                 </div>
@@ -81,9 +75,10 @@ function App() {
             </ul>
                 <div>
                     <h2>Details</h2>
-                    {selectedTrack?.loading ? 'Loading...' :
-                        selectedTrack === null? 'Track is not selected':
-                        <div>
+                    {!selectedTrack && !selectedTrackId &&'Track is not selected'}
+                    {!selectedTrack && selectedTrackId && 'Loading...'}
+                    { selectedTrack && selectedTrackId &&  selectedTrack.id !== selectedTrackId && 'Loading...'}
+                    {selectedTrack && <div>
                            <h3> {selectedTrack.attributes.title} </h3>
                             <h4>Lyrics</h4>
                             <p>
