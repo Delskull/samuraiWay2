@@ -17,14 +17,12 @@ export function TrackList() {
 
     if(tracks === null){
         return <div>
-            <h1>Musicfan Player</h1>
             <span>Loading...</span>
         </div>
     }
 
     if (tracks.length === 0) {
         return <div>
-            <h1>Musicfan Player</h1>
             <span>No tracks</span>
         </div>
     }

@@ -1,3 +1,3 @@
 export function PageTitle() {
-    return <div>PageTitle</div>
+    return <h1>Musicfan Player</h1>
 }

@@ -9,7 +9,7 @@ import {Footer} from "./components/Footer.tsx";
 
 const rootEl = document.getElementById('root')
 const reactRoot = createRoot(rootEl!)
-reactRoot.render(<MainPage />)
+reactRoot.render(<MainPage/>)
 
 function MainPage() {
 
@@ -18,8 +18,10 @@ function MainPage() {
         <Header/>
         <SidebarMenu/>
         <PageTitle/>
-        <TrackList/>
-        <TrackDetail/>
+        <div style={{display: 'flex'}}>
+            <TrackList/>
+            <TrackDetail/>
+        </div>
         <Footer/>
     </div>
 }
