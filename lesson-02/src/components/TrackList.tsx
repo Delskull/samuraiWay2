@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
+import {TrackItem} from "./TrackItem.tsx";
 
-export function TrackList() {
+export function TrackList({onTrackSelect, selectedTrackId}) {
     const [tracks, setTracks] = useState(null)
-    const [selectedTrackId, setSelectedTrackId] = useState(null)
 
     useEffect(() => {
         fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
@@ -15,7 +15,7 @@ export function TrackList() {
 
     }, [])
 
-    if(tracks === null){
+    if (tracks === null) {
         return <div>
             <span>Loading...</span>
         </div>
@@ -27,24 +27,28 @@ export function TrackList() {
         </div>
     }
 
-    return <ul>
-        {
-            tracks.map((track) => {
-                return (
-                    <li key={track.id} style={{
-                        border: track.id === selectedTrackId ? '1px solid orange' : 'none'
-                    }}>
-                        <div onClick={ () => {
-                            setSelectedTrackId(track.id)
+    const handleResetClick = () => {
+        onTrackSelect?.(null)
+    }
+    const handleClick = (trackId) => {
+        onTrackSelect?.(trackId)
+    }
+    return <div>
+        <button onClick={handleResetClick}>Reset
+        </button>
 
-
-                        }}>
-                            {track.attributes.title}
-                        </div>
-                        <audio controls
-                               src={track.attributes.attachments[0].url}></audio>
-                    </li>
-                )
-            })}
-    </ul>
+        <hr/>
+        <ul>
+            {
+                tracks.map((track) => {
+                    return (
+                        <TrackItem key={track.id}
+                                    track={track}
+                                   isSelected = {track.id === selectedTrackId}
+                                   onSelect={handleClick}
+                        />
+                    )
+                })}
+        </ul>
+    </div>
 }
