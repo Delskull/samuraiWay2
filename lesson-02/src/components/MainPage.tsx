@@ -3,9 +3,9 @@ import {TrackDetail} from "./TrackDetail.tsx";
 import {useState} from "react";
 
 export function MainPage() {
-    const [trackId, setTrackId] = useState(null)
+    const [trackId, setTrackId] = useState<string | null>(null)
 
-    const handleTrackSelect = (id) => {
+    const handleTrackSelect = (id: string | null): void => {
         setTrackId(id)
     }
 

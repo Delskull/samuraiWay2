@@ -1,13 +1,23 @@
 import {useEffect, useState} from "react";
 
-export function TrackDetail({trackId}) {
-    const [selectedTrack, setSelectedTrack] = useState(null)
+type GetTrackDetailsOutputData = {
+    id: string
+    attributes: {
+        title: string
+        lyrics: string | null
+    }
+}
+type Props = {
+    trackId: string | null
+}
 
+export function TrackDetail({trackId}: Props) {
+    const [selectedTrack, setSelectedTrack] = useState<GetTrackDetailsOutputData | null>(null)
 
 
     useEffect(() => {
 
-        if(!trackId) {
+        if (!trackId) {
             setSelectedTrack(null)
             return
         }
@@ -24,9 +34,9 @@ export function TrackDetail({trackId}) {
 
     return <div>
         <h2>Details</h2>
-        {!selectedTrack && !trackId &&'Track is not selected'}
+        {!selectedTrack && !trackId && 'Track is not selected'}
         {!selectedTrack && trackId && 'Loading...'}
-        { selectedTrack && trackId &&  selectedTrack.id !== trackId && 'Loading...'}
+        {selectedTrack && trackId && selectedTrack.id !== trackId && 'Loading...'}
         {selectedTrack && <div>
             <h3> {selectedTrack.attributes.title} </h3>
             <h4>Lyrics</h4>
